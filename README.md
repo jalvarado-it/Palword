@@ -40,3 +40,38 @@ The configuration example and the default configurations can be found in  `/home
 # Copy de default configuration to PalWorldSettings.ini and make your customization
 cp ~/.local/share/Steam/steamapps/common/PalServer/DefaultPalWorldSettings.ini ~/.local/share/Steam/steamapps/common/PalServer/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini
 ```
+
+PalServer service:
+
+```bash
+sudo nano /etc/systemd/system/palserver.service
+```
+
+```
+[Unit]
+Description=Palworld Dedicated Server
+After=network.target
+
+[Service]
+Type=simple
+User=steam
+Group=steam
+Environment="templdpath=$LD_LIBRARY_PATH"
+Environment="LD_LIBRARY_PATH=/home/steam/:$LD_LIBRARY_PATH"
+Environment="SteamAppId=2394010"
+RestartSec=30s
+MemoryMax=12G
+ExecStart=/home/steam/Steam/steamapps/common/PalServer/PalServer.sh -publiclobby
+Restart=always
+;-useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS
+
+[Install]
+WantedBy=multi-user.target
+```
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable palserver.service
+sudo systemctl start palserver.service
+sudo systemctl status palserver.service
+```
+
