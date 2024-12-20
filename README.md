@@ -61,7 +61,7 @@ Environment="LD_LIBRARY_PATH=/home/steam/:$LD_LIBRARY_PATH"
 Environment="SteamAppId=2394010"
 RestartSec=30s
 MemoryMax=12G
-ExecStart=/home/steam/Steam/steamapps/common/PalServer/PalServer.sh -publiclobby
+ExecStart=/home/steam/.local/share/Steam/steamapps/common/PalServer/PalServer.sh -publiclobby
 Restart=always
 ;-useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS
 
